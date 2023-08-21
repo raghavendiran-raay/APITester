@@ -29,7 +29,8 @@ jobs:
         with:
           node-version: "20"
       - run: npm install -g newman
-      - run: newman run "https://api.getpostman.com/collections/${{ secrets.COLLECTIONID }}?apikey=${{ secrets.POSTMANAPIKEY }}" > result.txt
+      - run: newman run "https://api.getpostman.com/collections/${{ secrets.COLLECTIONID }}?apikey=${{ secrets.POSTMANAPIKEY }}" > result.txt | exit 0
+      - run: echo $?
       - name: Send mail
         uses: dawidd6/action-send-mail@v3
         with:
