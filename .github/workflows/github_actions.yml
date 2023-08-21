@@ -4,5 +4,5 @@ on:
 
 jobs:
   run-tests:
-    uses: ./.github/workflows/github_actions.yml@main
+    uses: Raghavendiran-2002/APITester/.github/workflows/github_actions.yml@main
     secrets: inherit
