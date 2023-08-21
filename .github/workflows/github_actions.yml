@@ -11,6 +11,9 @@ on:
 jobs:
   newman:
     runs-on: ubuntu-latest
+    outputs:
+      output1: ${{ steps.step1.outputs.test }}
+      output2: ${{ steps.step2.outputs.test }}
     steps:
       - uses: actions/checkout@v3
       - uses: adambirds/docker-compose-action@v1.3.0
@@ -26,4 +29,16 @@ jobs:
         with:
           node-version: "20"
       - run: npm install -g newman
-      - run: newman run "https://api.getpostman.com/collections/${{ secrets.COLLECTIONID }}?apikey=${{ secrets.POSTMANAPIKEY }}"
+      - run: newman run "https://api.getpostman.com/collections/${{ secrets.COLLECTIONID }}?apikey=${{ secrets.POSTMANAPIKEY }}" >> "$GITHUB_OUTPUT"
+
+      - name: Send some mail
+        uses: wadeww/send-email-action@master
+        with:
+          server_address: smtp.gmail.com
+          port: 465
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+          subject: Workflow finished
+          body: Job completed ${{job.status}} $GITHUB_OUTPUT
+          to: raghavendiran@46461@gmail.com, arulselvinr@gmail.com
+          from: Me
