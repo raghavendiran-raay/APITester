@@ -1,9 +1,9 @@
 name: Validating API
 on:
   push:
-    branches: ["python", "Node"]
+    branches: ["Python", "Node"]
   pull_request:
-    branches: ["python", "Node"]
+    branches: ["Python", "Node"]
 
 jobs:
   newman:
