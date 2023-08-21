@@ -1,7 +1,7 @@
 name: Validating API
 
 on:
-  workflow_dispatch:
+  workflow_call:
 
 jobs:
   newman:
