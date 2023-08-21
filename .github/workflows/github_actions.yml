@@ -2,6 +2,10 @@ name: Validating API
 
 on:
   workflow_call:
+    inputs:
+      YOUR_MAIL_ID:
+        required: true
+        type: string
     secrets:
       COLLECTIONID:
         required: true
@@ -54,7 +58,7 @@ jobs:
           # Required mail subject:
           subject: Github Actions job result
           # Required recipients' addresses:
-          to: raghavendiran@46461@gmail.com, arulselvinr@gmail.com
+          to: ${{ inputs.YOUR_MAIL_ID }}, ${{secrets.SENDER_MAIL}}
           # Required sender full name (address can be skipped):
           from: Me # <user@example.com>
           # Optional plain body:
