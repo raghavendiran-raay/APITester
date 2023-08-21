@@ -8,7 +8,7 @@ def greeting():
         return "Hello world!"
 
 
-@app.route('<>', methods=['POST','GET'])
+@app.route('/', methods=['POST','GET'])
 def add():
     # write your code here...
     return ""
