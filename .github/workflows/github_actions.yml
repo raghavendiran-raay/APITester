@@ -10,3 +10,5 @@ jobs:
   run-tests:
     uses: Raghavendiran-2002/APITester/.github/workflows/github_actions.yml@main
     secrets: inherit
+    with:
+      YOUR_MAIL_ID: raghavendiran46461@gmail.com
