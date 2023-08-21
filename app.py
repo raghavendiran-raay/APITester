@@ -20,7 +20,12 @@ def add():
 @app.route('/calculator/subtract', methods=['POST','GET'])
 def subtract():
     # write your code here...
-    return ""
+    # return ""
+    if request.method == 'POST':
+        data = request.get_json()
+        first = data['first']
+        second = data['second']
+        return jsonify({'result': first - second})
 
 if __name__ == '__main__':
 
