@@ -1,9 +1,6 @@
 name: Validating API
 on:
-  push:
-    branches: ["Python", "Node"]
-  pull_request:
-    branches: ["Python", "Node"]
+  workflow_dispatch:
 
 jobs:
   run-tests:
