@@ -3,7 +3,9 @@ name: Validating API
 on:
   workflow_call:
     secrets:
-      env:
+      COLLECTIONID:
+        required: true
+      POSTMANAPIKEY:
         required: true
 
 jobs:
