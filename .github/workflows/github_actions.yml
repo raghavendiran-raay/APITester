@@ -6,11 +6,11 @@ on:
       YOUR_MAIL_ID:
         required: true
         type: string
-    secrets:
-      COLLECTIONID:
-        required: true
-      POSTMANAPIKEY:
-        required: true
+    # secrets:
+    #   COLLECTIONID:
+    #     required: true
+    #   POSTMANAPIKEY:
+    #     required: true
 
 jobs:
   newman:
