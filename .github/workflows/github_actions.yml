@@ -29,16 +29,46 @@ jobs:
         with:
           node-version: "20"
       - run: npm install -g newman
-      - run: newman run "https://api.getpostman.com/collections/${{ secrets.COLLECTIONID }}?apikey=${{ secrets.POSTMANAPIKEY }}" >> "$GITHUB_OUTPUT"
-
-      - name: Send some mail
-        uses: wadeww/send-email-action@master
+      - run: newman run "https://api.getpostman.com/collections/${{ secrets.COLLECTIONID }}?apikey=${{ secrets.POSTMANAPIKEY }}" > result.txt
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v3
         with:
+          # Specify connection via URL (replaces server_address, server_port, secure,
+          # username and password)
+          #
+          # Format:
+          #
+          #  * smtp://user:password@server:port
+          #  * smtp+starttls://user:password@server:port
+          # Required mail server address if not connection_url:
           server_address: smtp.gmail.com
-          port: 465
+          # Server port, default 25:
+          server_port: 465
+          # Optional whether this connection use TLS (default is true if server_port is 465)
+          secure: true
+          # Optional (recommended) mail server username:
           username: ${{secrets.MAIL_USERNAME}}
+          # Optional (recommended) mail server password:
           password: ${{secrets.MAIL_PASSWORD}}
-          subject: Workflow finished
-          body: Job completed ${{job.status}} $GITHUB_OUTPUT
+          # Required mail subject:
+          subject: Github Actions job result
+          # Required recipients' addresses:
           to: raghavendiran@46461@gmail.com, arulselvinr@gmail.com
-          from: Me
+          # Required sender full name (address can be skipped):
+          from: Me # <user@example.com>
+          # Optional plain body:
+          body: Build job of ${{github.repository}} completed successfully!
+          # Optional attachments:
+          attachments: result.txt
+
+      # - name: Send some mail
+      #   uses: wadeww/send-email-action@master
+      #   with:
+      #     server_address: smtp.gmail.com
+      #     port: 465
+      #     username: {{secrets.MAIL_USERNAME}}
+      #     password: {{secrets.MAIL_PASSWORD}}
+      #     subject: Workflow finished
+      #     body: Job completed {{job.status}} $GITHUB_OUTPUT
+      #     to: raghavendiran@46461@gmail.com, arulselvinr@gmail.com
+      #     from: Me
