@@ -1,6 +1,9 @@
 name: Validating API
 on:
-  workflow_dispatch:
+  push:
+    branches: ["python", "Node"]
+  pull_request:
+    branches: ["python", "Node"]
 
 jobs:
   newman:
