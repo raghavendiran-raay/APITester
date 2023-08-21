@@ -6,24 +6,6 @@ on:
     branches: ["Python", "Node"]
 
 jobs:
-  newman:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3 # Necessary to access local action
-      - name: Local Action Call
-        uses: ./.github/workflows
-      - uses: actions/checkout@v3
-      - uses: adambirds/docker-compose-action@v1.3.0
-        with:
-          compose-file: "./docker-compose.yml"
-          down-flags: "--volumes"
-          services: |
-            app
-          test-container: app
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: "20"
-      - run: npm install -g newman
-      - run: newman run "https://api.getpostman.com/collections/${{ secrets.COLLECTIONID }}?apikey=${{ secrets.POSTMANAPIKEY }}"
+  run-tests:
+    uses: ./.github/workflows/github_actions.yml@main
+    secrets: inherit
